@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Source: https://github.com/FabricMC/fabric-loom/blob/d1f35d42218d0710ca640e6f8bef31b7232a9304/src/main/resources/log4j2.fabric.xml -->
 <Configuration status="WARN" packages="com.mojang.util">
 	<Appenders>
 
