@@ -1,6 +1,7 @@
 package com.pixelstorm.better_log4j_config;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
@@ -29,7 +30,7 @@ public class BetterLog4jConfig implements PreLaunchEntrypoint {
 		CLASSLOADER = mod.getClassLoader();
 
 		// Get log4j to load our plugin, so it doesn't fail to parse the new config file
-		loadPlugin(CLASSLOADER);
+		loadPlugin();
 
 		// Get the URI to the new config file
 		URI newConfigUri = ConfigFileHandler.getOrCreateDefaultConfigFile();
@@ -37,7 +38,7 @@ public class BetterLog4jConfig implements PreLaunchEntrypoint {
 		// Attempt to reconfigure Log4j with the new config
 		try {
 			Reconfigurator.reconfigureWithUri(newConfigUri);
-		} catch (UnsupportedOperationException e) {
+		} catch (UnsupportedOperationException | IOException e) {
 			LOGGER.error("Failed to reconfigure Log4j:");
 			LOGGER.error(getPrintedStackTrace(e));
 			return;
@@ -59,8 +60,8 @@ public class BetterLog4jConfig implements PreLaunchEntrypoint {
 	 * @see {@link BetterLog4jConfig#BUNDLE_ID}
 	 * @see {@link LoggerNamePatternSelector}
 	 */
-	public static void loadPlugin(ClassLoader loader) {
-		PluginRegistry.getInstance().loadFromBundle(BUNDLE_ID, loader);
+	public static void loadPlugin() {
+		PluginRegistry.getInstance().loadFromBundle(BUNDLE_ID, CLASSLOADER);
 	}
 
 	/**
