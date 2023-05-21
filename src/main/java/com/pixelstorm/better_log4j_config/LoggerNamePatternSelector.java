@@ -1,6 +1,7 @@
-package com.pixelstorm.elytra_tech;
+package com.pixelstorm.better_log4j_config;
 
 // Source: https://github.com/Minecrell/TerminalConsoleAppender/blob/3f67b918ec1187d2dffc700729000f47f79b0116/src/main/java/net/minecrell/terminalconsole/util/LoggerNamePatternSelector.java
+// Simply copy-pasting the singular file is far easier than pulling in the whole dependency
 
 import org.apache.logging.log4j.core.LogEvent;
 import org.apache.logging.log4j.core.config.Configuration;
@@ -48,9 +49,7 @@ import java.util.List;
 @Plugin(name = "LoggerNamePatternSelector", category = Node.CATEGORY, elementType = PatternSelector.ELEMENT_TYPE)
 @PerformanceSensitive("allocation")
 public final class LoggerNamePatternSelector implements PatternSelector {
-
 	private static class LoggerNameSelector {
-
 		private final String name;
 		private final boolean isPackage;
 		private final PatternFormatter[] formatters;
@@ -68,7 +67,6 @@ public final class LoggerNamePatternSelector implements PatternSelector {
 		boolean test(String s) {
 			return this.isPackage ? s.startsWith(this.name) : s.equals(this.name);
 		}
-
 	}
 
 	private final PatternFormatter[] defaultFormatters;
@@ -144,5 +142,4 @@ public final class LoggerNamePatternSelector implements PatternSelector {
 		return new LoggerNamePatternSelector(defaultPattern, properties, alwaysWriteExceptions, disableAnsi,
 				noConsoleNoAnsi, config);
 	}
-
 }
