@@ -3,13 +3,9 @@ package com.pixelstorm.better_log4j_config;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.core.LoggerContext;
 import org.apache.logging.log4j.core.config.plugins.util.PluginRegistry;
-import org.apache.logging.log4j.core.impl.Log4jContextFactory;
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.loader.api.entrypoint.PreLaunchEntrypoint;
 import org.slf4j.Logger;
@@ -19,31 +15,28 @@ public class BetterLog4jConfig implements PreLaunchEntrypoint {
 	public static final Logger LOGGER = LoggerFactory.getLogger("Better Log4j Config");
 
 	/**
-	 * The path to the config file that Log4j will be reconfigured to use
-	 */
-	public static final String CONFIG_RESOURCE_PATH = "data/log4j_new.xml";
-
-	/**
 	 * An arbitrary unique identifier to be passed to Log4j when loading our
 	 * {@link LoggerNamePatternSelector} plugin
 	 */
 	public static final long BUNDLE_ID = 54321;
 
+	public static ClassLoader CLASSLOADER;
+
 	@Override
 	public void onPreLaunch(ModContainer mod) {
 		LOGGER.info("Starting Log4j reconfiguration.");
 
-		ClassLoader classLoader = mod.getClassLoader();
+		CLASSLOADER = mod.getClassLoader();
 
 		// Get log4j to load our plugin, so it doesn't fail to parse the new config file
-		loadPlugin(classLoader);
+		loadPlugin(CLASSLOADER);
 
 		// Get the URI to the new config file
-		URI newConfigUri = getConfigResourceUri(classLoader);
+		URI newConfigUri = ConfigFileHandler.getOrCreateDefaultConfigFile();
 
 		// Attempt to reconfigure Log4j with the new config
 		try {
-			reconfigureWithUri(newConfigUri);
+			Reconfigurator.reconfigureWithUri(newConfigUri);
 		} catch (UnsupportedOperationException e) {
 			LOGGER.error("Failed to reconfigure Log4j:");
 			LOGGER.error(getPrintedStackTrace(e));
@@ -51,43 +44,6 @@ public class BetterLog4jConfig implements PreLaunchEntrypoint {
 		}
 
 		LOGGER.info("Finished Log4j reconfiguration.");
-	}
-
-	public static void reconfigureWithUri(URI newConfigUri) throws UnsupportedOperationException {
-		var factory = LogManager.getFactory();
-		if (factory instanceof Log4jContextFactory) {
-			reconfigureLog4jContextFactoryWithUri((Log4jContextFactory) factory, newConfigUri);
-		} else {
-			throw new UnsupportedOperationException(
-					String.format("Expected ContextFactory to be Log4jContextFactory, but it was %s instead!",
-							factory.getClass().getSimpleName()));
-		}
-	}
-
-	public static void reconfigureLog4jContextFactoryWithUri(Log4jContextFactory factory,
-			URI newConfigUri) {
-		// Get the LoggerContexts to be reconfigured
-		var contexts = factory.getSelector().getLoggerContexts();
-
-		LOGGER.debug("Reconfiguring %d LoggerContexts:", contexts.size());
-
-		// Reconfigure each of the LoggerContexts
-		for (LoggerContext context : contexts) {
-			reconfigureLoggerContextWithUri(context, newConfigUri);
-			LOGGER.debug("Reconfigured {} (Name {})", context, context.getName());
-		}
-	}
-
-	public static void reconfigureLoggerContextWithUri(LoggerContext context, URI newConfigUri) {
-		context.setConfigLocation(newConfigUri);
-	}
-
-	public static URI getConfigResourceUri(ClassLoader loader) {
-		try {
-			return loader.getResource(CONFIG_RESOURCE_PATH).toURI();
-		} catch (URISyntaxException e) {
-			throw new RuntimeException("Class loader returned an invalid URI! This should never happen.", e);
-		}
 	}
 
 	/**
