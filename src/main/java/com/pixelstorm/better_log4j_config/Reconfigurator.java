@@ -105,7 +105,7 @@ public class Reconfigurator {
 		Configuration configuration = ConfigurationFactory.getInstance().getConfiguration(context, context.getName(),
 				newConfigUri);
 		if (configuration != null) {
-			context.reconfigure(configuration);
+			context.start(configuration);
 			return true;
 		}
 		return false;

@@ -1,19 +1,16 @@
 package com.pixelstorm.better_log4j_config;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.PrintStream;
 import java.net.URI;
-import java.nio.charset.StandardCharsets;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.config.plugins.util.PluginRegistry;
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.loader.api.entrypoint.PreLaunchEntrypoint;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class BetterLog4jConfig implements PreLaunchEntrypoint {
-	public static final Logger LOGGER = LoggerFactory.getLogger("Better Log4j Config");
+	public static final Logger LOGGER = LogManager.getLogger("Better Log4j Config");
 
 	/**
 	 * An arbitrary unique identifier to be passed to Log4j when loading our
@@ -39,8 +36,7 @@ public class BetterLog4jConfig implements PreLaunchEntrypoint {
 		try {
 			Reconfigurator.reconfigureWithUri(newConfigUri);
 		} catch (UnsupportedOperationException | IOException e) {
-			LOGGER.error("Failed to reconfigure Log4j:");
-			LOGGER.error(getPrintedStackTrace(e));
+			LOGGER.error("Failed to reconfigure Log4j:", e);
 			return;
 		}
 
@@ -62,20 +58,5 @@ public class BetterLog4jConfig implements PreLaunchEntrypoint {
 	 */
 	public static void loadPlugin() {
 		PluginRegistry.getInstance().loadFromBundle(BUNDLE_ID, CLASSLOADER);
-	}
-
-	/**
-	 * Collects the output of {@link Throwable#printStackTrace()} to a
-	 * {@link String}, because there is no built-in method to do this.
-	 *
-	 * @param e The throwable to get the stack trace of
-	 * @return The printed stack trace of the given throwable
-	 */
-	public static String getPrintedStackTrace(Throwable e) {
-		ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
-		try (PrintStream printStream = new PrintStream(byteStream)) {
-			e.printStackTrace(printStream);
-		}
-		return byteStream.toString(StandardCharsets.UTF_8);
 	}
 }

@@ -18,6 +18,10 @@ The screenshots also highlight how some mods attempt to individually remedy this
 This mod offers a solution to this problem by configuring the logging system itself to always include the mod name in the log messages.
 The format of the log messages can also be further customised with a [config file](https://logging.apache.org/log4j/2.x/manual/configuration.html#XML), which by default is `better_log4j_config.xml` in the mod config directory.
 
+## Version Support
+
+Better Log4j Config is compatible with every version of Minecraft that is supported by the Quilt mod loader - so 1.14 onwards. There are no plans to port the mod to any other mod loaders, such as Forge, in order to support any earlier versions.
+
 ## License
 
 Better Log4j Config is licensed under the [Apache 2.0 license](./LICENSE).

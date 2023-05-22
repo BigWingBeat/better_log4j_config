@@ -2,12 +2,10 @@ package com.pixelstorm.better_log4j_config;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
 
 import org.quiltmc.loader.api.QuiltLoader;
 
@@ -52,8 +50,8 @@ public class ConfigFileHandler {
 				writeFallbackConfig(configPath);
 			} catch (IOException e) {
 				BetterLog4jConfig.LOGGER.error(
-						"Could not write fallback config to the aforementioned location! The fallback config will be used directly for this session instead, but this error may happen again if the issue is not fixed:");
-				BetterLog4jConfig.LOGGER.error(BetterLog4jConfig.getPrintedStackTrace(e));
+						"Could not write fallback config to the aforementioned location! The fallback config will be used directly for this session instead, but this error may happen again if the issue is not fixed:",
+						e);
 			}
 			return getFallbackConfigUri();
 		}
@@ -69,8 +67,7 @@ public class ConfigFileHandler {
 		try {
 			return BetterLog4jConfig.CLASSLOADER.getResource(FALLBACK_CONFIG_RESOURCE_PATH).toURI();
 		} catch (URISyntaxException e) {
-			BetterLog4jConfig.LOGGER.error("Class loader returned an invalid URI! This should never happen.");
-			BetterLog4jConfig.LOGGER.error(BetterLog4jConfig.getPrintedStackTrace(e));
+			BetterLog4jConfig.LOGGER.error("Class loader returned an invalid URI! This should never happen:", e);
 			throw new RuntimeException(e);
 		}
 	}
@@ -91,12 +88,8 @@ public class ConfigFileHandler {
 	 * @throws IOException
 	 */
 	public static void writeFallbackConfig(Path configPath) throws IOException {
-		// Use CREATE_NEW instead of the default of CREATE to avoid overwriting an
-		// existing file
-		try (InputStream input = getFallbackConfigBytes();
-				OutputStream output = Files.newOutputStream(configPath, StandardOpenOption.CREATE_NEW,
-						StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.WRITE);) {
-			input.transferTo(output);
+		try (InputStream input = getFallbackConfigBytes();) {
+			Files.copy(input, configPath);
 		}
 	}
 }
