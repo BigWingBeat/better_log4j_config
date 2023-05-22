@@ -1,6 +1,6 @@
 # Better Log4j Config
 
-A simple mod for [Quilt](https://quiltmc.org) to automatically reconfigure [Log4j](https://logging.apache.org/log4j/2.x/index.html) to improve the formatting of log messages.
+A simple mod for [Quilt](https://quiltmc.org) and [Fabric](https://fabricmc.net/) to automatically reconfigure [Log4j](https://logging.apache.org/log4j/2.x/index.html) to improve the formatting of log messages.
 
 ## Screenshots
 
@@ -20,7 +20,7 @@ The format of the log messages can also be further customised with a [config fil
 
 ## Version Support
 
-Better Log4j Config is compatible with every version of Minecraft that is supported by the Quilt mod loader - so 1.14 onwards. There are no plans to port the mod to any other mod loaders, such as Forge, in order to support any versions earlier than 1.14.
+Better Log4j Config is compatible with every version of Minecraft that is supported by the Quilt and Fabric mod loaders - so 1.14 onwards. There are no plans to port the mod to any other mod loaders, such as Forge, in order to support any versions earlier than 1.14.
 
 ## License
 
