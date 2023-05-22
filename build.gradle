@@ -13,8 +13,8 @@ repositories {
 	// See https://docs.gradle.org/current/userguide/declaring_repositories.html
 	// for more information about repositories.
 	maven {
-		name = 'Quilt'
-		url = 'https://maven.quiltmc.org/repository/release'
+		name = 'Fabric'
+		url = 'https://maven.fabricmc.net/'
 	}
 	mavenCentral()
 }
@@ -22,7 +22,7 @@ repositories {
 // All the dependencies are declared at gradle/libs.version.toml and referenced with "libs.<id>"
 // See https://docs.gradle.org/current/userguide/platforms.html for information on how version catalogs work.
 dependencies {
-	implementation libs.quilt.loader
+	implementation libs.fabric.loader
 
 	implementation libs.log4j.api
 	implementation libs.log4j.core
@@ -32,7 +32,7 @@ dependencies {
 processResources {
 	inputs.property 'version', version
 
-	filesMatching('quilt.mod.json') {
+	filesMatching('fabric.mod.json') {
 		expand "version": version
 	}
 }

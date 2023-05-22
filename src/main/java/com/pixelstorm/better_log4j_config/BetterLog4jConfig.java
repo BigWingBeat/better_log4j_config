@@ -6,8 +6,9 @@ import java.net.URI;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.config.plugins.util.PluginRegistry;
-import org.quiltmc.loader.api.ModContainer;
-import org.quiltmc.loader.api.entrypoint.PreLaunchEntrypoint;
+import org.apache.logging.log4j.core.util.Loader;
+
+import net.fabricmc.loader.api.entrypoint.PreLaunchEntrypoint;
 
 public class BetterLog4jConfig implements PreLaunchEntrypoint {
 	public static final Logger LOGGER = LogManager.getLogger("Better Log4j Config");
@@ -21,10 +22,10 @@ public class BetterLog4jConfig implements PreLaunchEntrypoint {
 	public static ClassLoader CLASSLOADER;
 
 	@Override
-	public void onPreLaunch(ModContainer mod) {
+	public void onPreLaunch() {
 		LOGGER.info("Starting Log4j reconfiguration.");
 
-		CLASSLOADER = mod.getClassLoader();
+		CLASSLOADER = Loader.getClassLoader();
 
 		// Get log4j to load our plugin, so it doesn't fail to parse the new config file
 		loadPlugin();

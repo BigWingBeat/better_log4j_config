@@ -1,9 +1,9 @@
 [versions]
-quilt_loader = "+"
+fabric_loader = "[0.7,)" # 0.7 is when the preLaunch entrypoint was added
 log4j_api = "2.+"
 log4j_core = "2.+"
 
 [libraries]
-quilt_loader = { module = "org.quiltmc:quilt-loader", version.ref = "quilt_loader" }
+fabric_loader = { module = "net.fabricmc:fabric-loader", version.ref = "fabric_loader" }
 log4j_api = { module = "org.apache.logging.log4j:log4j-api", version.ref = "log4j_api" }
 log4j_core = { module = "org.apache.logging.log4j:log4j-core", version.ref = "log4j_core" }

@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "better_log4j_config",
+  "version": "${version}",
+  "name": "Better Log4j Config",
+  "description": "Automatically reconfigures Log4j to improve the formatting of log messages.",
+  "authors": [
+    "Pixelstorm"
+  ],
+  "contact": {
+    "homepage": "https://modrinth.com/mod/better-log4j-config",
+    "issues": "https://github.com/Pixelstormer/better_log4j_config/issues",
+    "sources": "https://github.com/Pixelstormer/better_log4j_config/tree/fabric"
+  },
+  "license": "Apache-2.0",
+  "icon": "assets/better_log4j_config/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "preLaunch": [
+      "com.pixelstorm.better_log4j_config.BetterLog4jConfig"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.7",
+    "java": ">=8"
+  }
+}

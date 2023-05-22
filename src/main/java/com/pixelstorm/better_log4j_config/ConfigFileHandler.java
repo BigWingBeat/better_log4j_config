@@ -7,7 +7,7 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import org.quiltmc.loader.api.QuiltLoader;
+import net.fabricmc.loader.api.FabricLoader;
 
 public class ConfigFileHandler {
 	/**
@@ -29,7 +29,7 @@ public class ConfigFileHandler {
 	 *         config file
 	 */
 	public static Path getDefaultConfigPath() {
-		return QuiltLoader.getConfigDir().resolve(CONFIG_FILENAME);
+		return FabricLoader.getInstance().getConfigDir().resolve(CONFIG_FILENAME);
 	}
 
 	/**
