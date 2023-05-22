@@ -3,7 +3,7 @@ plugins {
 	id 'java'
 }
 
-base.archivesName = project.archives_base_name
+base.archivesName = "${project.archives_base_name}-quilt"
 version = "${project.version}"
 group = project.maven_group
 
