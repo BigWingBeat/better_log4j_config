@@ -20,7 +20,7 @@ The format of the log messages can also be further customised with a [config fil
 
 ## Version Support
 
-Better Log4j Config is compatible with every version of Minecraft that is supported by the Quilt mod loader - so 1.14 onwards. There are no plans to port the mod to any other mod loaders, such as Forge, in order to support any earlier versions.
+Better Log4j Config is compatible with every version of Minecraft that is supported by the Quilt mod loader - so 1.14 onwards. There are no plans to port the mod to any other mod loaders, such as Forge, in order to support any versions earlier than 1.14.
 
 ## License
 
