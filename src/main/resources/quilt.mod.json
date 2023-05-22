@@ -13,7 +13,7 @@
 			"contact": {
 				"homepage": "https://github.com/Pixelstormer/better_log4j_config/",
 				"issues": "https://github.com/Pixelstormer/better_log4j_config/issues",
-				"sources": "https://github.com/Pixelstormer/better_log4j_config"
+				"sources": "https://github.com/Pixelstormer/better_log4j_config/tree/quilt"
 			},
 			"icon": "assets/better_log4j_config/icon.png"
 		},
