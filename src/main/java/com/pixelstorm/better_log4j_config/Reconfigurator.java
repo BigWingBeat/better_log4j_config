@@ -105,6 +105,10 @@ public class Reconfigurator {
 		Configuration configuration = ConfigurationFactory.getInstance().getConfiguration(context, context.getName(),
 				newConfigUri);
 		if (configuration != null) {
+			// Earlier Minecraft versions use older versions of Log4j, where
+			// .setConfiguration() was a private method and .reconfigure() could only accept
+			// a URI, so .start() is the only way to set a new configuration that will
+			// definitely work on every version we could be running on
 			context.start(configuration);
 			return true;
 		}
