@@ -5,9 +5,11 @@ A simple mod for [Quilt](https://quiltmc.org) and [Fabric](https://fabricmc.net/
 ## Screenshots
 
 ### Before
+
 ![before](.github/assets/before.png)
 
 ### After
+
 ![after](.github/assets/after.png)
 
 ## What does it do?
