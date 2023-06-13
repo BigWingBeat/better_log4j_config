@@ -24,6 +24,10 @@ The format of the log messages can also be further customised with a [config fil
 
 Better Log4j Config is compatible with every version of Minecraft that is supported by the Quilt and Fabric mod loaders - so 1.14 onwards. The Forge mod loader already has built-in functionality to reconfigure Log4j, so there are no plans to port the mod to it.
 
+## Reporting Issues
+
+If for any reason the mod isn't working, please [open an issue](https://github.com/Pixelstormer/better_log4j_config/issues/new) so it can be fixed. Remember to include the versions of both Minecraft and the mod loader you're using, as well as any other mods you have installed, and also a copy of the log file. (Hint: You can add `-Dlog4j2.debug=true` as a command-line argument to Minecraft to produce substantially more verbose logs.)
+
 ## License
 
 Better Log4j Config is licensed under the [Apache 2.0 license](./LICENSE).
