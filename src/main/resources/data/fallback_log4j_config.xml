@@ -54,7 +54,8 @@
 	<Loggers>
 		<Logger level="${sys:fabric.log.level:-info}" name="net.minecraft"/>
 		<Root level="all">
-			<AppenderRef ref="DebugFile" level="${sys:fabric.log.debug.level:-debug}"/>
+			<!-- Uncomment the following line to enable `debug.log`. Disabled by default, as it is extremely verbose! -->
+			<!-- <AppenderRef ref="DebugFile" level="${sys:fabric.log.debug.level:-debug}"/> -->
 			<AppenderRef ref="SysOut" level="${sys:fabric.log.level:-info}"/>
 			<AppenderRef ref="LatestFile" level="${sys:fabric.log.level:-info}"/>
 			<AppenderRef ref="ServerGuiConsole" level="${sys:fabric.log.level:-info}"/>
