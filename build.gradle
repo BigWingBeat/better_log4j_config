@@ -63,6 +63,18 @@ jar {
 	}
 }
 
+tasks.register('printVersionName') {
+	doLast {
+		println version.split("-")[0] + " (${version.split("-")[1]})"
+	}
+}
+
+tasks.register('printVersion') {
+	doLast {
+		println version
+	}
+}
+
 // Configure the maven publication
 publishing {
 	publications {
