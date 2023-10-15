@@ -1,12 +1,12 @@
 package com.pixelstorm.better_log4j_config;
 
-import java.io.IOException;
 import java.net.URI;
 
 import net.fabricmc.loader.api.LanguageAdapter;
 import net.fabricmc.loader.api.ModContainer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.core.config.Configurator;
 import org.apache.logging.log4j.core.config.plugins.util.PluginRegistry;
 import org.apache.logging.log4j.core.util.Loader;
 
@@ -38,8 +38,8 @@ public class BetterLog4jConfig implements LanguageAdapter {
 
 		// Attempt to reconfigure Log4j with the new config
 		try {
-			Reconfigurator.reconfigureWithUri(newConfigUri);
-		} catch (UnsupportedOperationException | IOException e) {
+			Configurator.initialize(LogManager.ROOT_LOGGER_NAME, CLASSLOADER, newConfigUri);
+		} catch (UnsupportedOperationException e) {
 			LOGGER.error("Failed to reconfigure Log4j:", e);
 			return;
 		}
