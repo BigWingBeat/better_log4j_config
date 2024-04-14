@@ -2,6 +2,10 @@
 
 A simple mod for [Quilt](https://quiltmc.org) and [Fabric](https://fabricmc.net/) to automatically reconfigure [Log4j](https://logging.apache.org/log4j/2.x/index.html) to improve the formatting of log messages.
 
+## Development Status
+
+This mod is no longer being developed. It will (almost) definitely continue working for future versions of Minecraft, but the supported versions list on Modrinth may become outdated.
+
 ## Screenshots
 
 ### Before
