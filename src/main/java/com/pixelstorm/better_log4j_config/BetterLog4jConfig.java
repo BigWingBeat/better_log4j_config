@@ -1,16 +1,16 @@
 package com.pixelstorm.better_log4j_config;
 
-import java.io.IOException;
 import java.net.URI;
 
+import net.fabricmc.loader.api.LanguageAdapter;
+import net.fabricmc.loader.api.ModContainer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.core.config.Configurator;
 import org.apache.logging.log4j.core.config.plugins.util.PluginRegistry;
 import org.apache.logging.log4j.core.util.Loader;
 
-import net.fabricmc.loader.api.entrypoint.PreLaunchEntrypoint;
-
-public class BetterLog4jConfig implements PreLaunchEntrypoint {
+public class BetterLog4jConfig implements LanguageAdapter {
 	public static final Logger LOGGER = LogManager.getLogger("Better Log4j Config");
 
 	/**
@@ -21,8 +21,11 @@ public class BetterLog4jConfig implements PreLaunchEntrypoint {
 
 	public static ClassLoader CLASSLOADER;
 
-	@Override
-	public void onPreLaunch() {
+	static {
+		onPreLaunch();
+	}
+
+	public static void onPreLaunch() {
 		LOGGER.info("Starting Log4j reconfiguration.");
 
 		CLASSLOADER = Loader.getClassLoader();
@@ -35,8 +38,8 @@ public class BetterLog4jConfig implements PreLaunchEntrypoint {
 
 		// Attempt to reconfigure Log4j with the new config
 		try {
-			Reconfigurator.reconfigureWithUri(newConfigUri);
-		} catch (UnsupportedOperationException | IOException e) {
+			Configurator.initialize(LogManager.ROOT_LOGGER_NAME, CLASSLOADER, newConfigUri);
+		} catch (UnsupportedOperationException e) {
 			LOGGER.error("Failed to reconfigure Log4j:", e);
 			return;
 		}
@@ -60,4 +63,7 @@ public class BetterLog4jConfig implements PreLaunchEntrypoint {
 	public static void loadPlugin() {
 		PluginRegistry.getInstance().loadFromBundle(BUNDLE_ID, CLASSLOADER);
 	}
+
+	@Override
+	public native  <T> T create(ModContainer mod, String value, Class<T> type);
 }

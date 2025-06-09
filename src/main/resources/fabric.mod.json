@@ -16,9 +16,9 @@
   "icon": "assets/better_log4j_config/icon.png",
   "environment": "*",
   "entrypoints": {
-    "preLaunch": [
-      "com.pixelstorm.better_log4j_config.BetterLog4jConfig"
-    ]
+  },
+  "languageAdapters": {
+    "better_log4j_config": "com.pixelstorm.better_log4j_config.BetterLog4jConfig"
   },
   "depends": {
     "fabricloader": ">=0.7",

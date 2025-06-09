@@ -65,7 +65,7 @@ public class ConfigFileHandler {
 	 */
 	public static URI getFallbackConfigUri() {
 		try {
-			return BetterLog4jConfig.CLASSLOADER.getResource(FALLBACK_CONFIG_RESOURCE_PATH).toURI();
+			return BetterLog4jConfig.class.getClassLoader().getResource(FALLBACK_CONFIG_RESOURCE_PATH).toURI();
 		} catch (URISyntaxException e) {
 			BetterLog4jConfig.LOGGER.error("Class loader returned an invalid URI! This should never happen:", e);
 			throw new RuntimeException(e);
@@ -78,7 +78,7 @@ public class ConfigFileHandler {
 	 * @return An {@link InputStream} of the contents of the fallback config
 	 */
 	public static InputStream getFallbackConfigBytes() {
-		return BetterLog4jConfig.CLASSLOADER.getResourceAsStream(FALLBACK_CONFIG_RESOURCE_PATH);
+		return BetterLog4jConfig.class.getClassLoader().getResourceAsStream(FALLBACK_CONFIG_RESOURCE_PATH);
 	}
 
 	/**
